@@ -1,15 +1,15 @@
 const express =require('express');
-
+const secure=require('./secure');
 const response=require(`../../../network/response`)
 const Controller =require(`./index`);
-const secure=require(`./secure`);
+
 
 const router=express.Router();
 //routes
 router.get('/',list)
 router.get('/:id',get)
 router.post('/',upsert)
-router.put('/',secure(`update`),upsert)
+router.put('/', secure('update'),upsert)
 
 function list(req,res) {
     // res.send('todo esta en orden');
