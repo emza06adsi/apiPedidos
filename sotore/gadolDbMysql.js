@@ -62,35 +62,55 @@ function insert(table, data) {
     })
 }
 
-// function update(table, data) {
-//     return new Promise((resolve, reject) => {
-//         connection.query(`UPDATE ${table} SET ? WHERE id=?`, [data, data.id], (err, result) => {
-//             if (err) return reject(err);
-//             resolve(result);
-//         })
-//     })
-// }
+function update(table, data) {
+    return new Promise((resolve, reject) => {
+        connection.query(`UPDATE ${table} SET ? WHERE id=?`, [data, data.id], (err, result) => {
+            if (err) return reject(err);
+            resolve(result);
+        })
+    })
+}
 
 function upsert(table, data) {
+    // console.log(data)
+    // console.log("----")
+    // console.log(data.id)
+    // console.log("----")
+    // console.log(table)
+    
+    
     // if (data && data.id) {
+    //     console.log("existe")
         // return update(table, data);
     // } else {
+        // console.log("no existe")
         return insert(table, data);
     // }
 }
 
-// function query(table, query) {
-//     return new Promise((resolve, reject) => {
-//         connection.query(`SELECT * FROM ${table} WHERE ?`, query, (err, res) => {
-//             if (err) return reject(err);
-//             resolve(res[0] || null);
-//         })
-//     })
 // }
+
+function query(table, query) {
+    // console.log("query"+ query)
+    // console.log("table"+ table)
+    
+    return new Promise((resolve, reject) => {
+        connection.query(`SELECT * FROM ${table} WHERE ?`, query, (err, res) => {
+            if (err){
+                console.log(err)
+            
+                return reject(err);} 
+          else{
+            console.log(res[0])
+            resolve(res[0] || null);
+          }
+        })
+    })
+}
 
 module.exports = {
     list,
     get,
     upsert,
-    // query
+    query
 };
