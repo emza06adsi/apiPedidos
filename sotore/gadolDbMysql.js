@@ -44,14 +44,14 @@ function list(table) {
     })
 }
 
-// function get(table, id) {
-//     return new Promise((resolve, reject) => {
-//         connection.query(`SELECT * FROM ${table} WHERE id=${id}`, (err, data) => {
-//             if (err) return reject(err);
-//             resolve(data);
-//         })
-//     })
-// }
+function get(table, id) {
+    return new Promise((resolve, reject) => {
+        connection.query(`SELECT * FROM ${table} WHERE id=${id}`, (err, data) => {
+            if (err) return reject(err);
+            resolve(data);
+        })
+    })
+}
 
 // function insert(table, data) {
 //     return new Promise((resolve, reject) => {
@@ -90,7 +90,7 @@ function list(table) {
 
 module.exports = {
     list,
-    // get,
+    get,
     // upsert,
     // query
 };
