@@ -1,4 +1,4 @@
-const store =require('../../../sotore/gadol_db');
+const store =require('../../../sotore/gadolDbMysql');
 const nanoId =require('nanoid');
 const AUTH =require(`../auth`)
 const TABLA =`user`;
@@ -9,7 +9,7 @@ module.exports= function (injectedStore) {
     let store=injectedStore;
 
     if(!store){
-        store=require('../../../sotore/gadol_db')
+        store=require('../../../sotore/gadolDbMysql')
     }
 
     function list() {
@@ -23,15 +23,16 @@ module.exports= function (injectedStore) {
 
    async function upsert(body) {
         const user={
+         id:body.id,
          name: body.name,
          username:body.username
         };
-        if(body.id){
-            user.id=body.id
-        }
-        else{
-            user.id=nanoId();
-        }
+        // if(body.id){
+        //     user.id=body.id
+        // }
+        // else{
+        //     user.id=nanoId();
+        // }
 
         if (body.password || body.username){
             await AUTH.upsert(
