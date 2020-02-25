@@ -1,4 +1,4 @@
-const store= require(`../../../sotore/gadol_db`)
+const store= require(`../../../sotore/gadolDbMysql`)
 const ctrl=require('./controller');
 
 
