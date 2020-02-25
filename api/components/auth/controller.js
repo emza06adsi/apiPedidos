@@ -8,7 +8,7 @@ module.exports= function (injectedStore) {
     let store=injectedStore;
 
     if(!store){
-        store=require('../../../sotore/gadol_db')
+        store=require('../../../sotore/gadolDbMysql')
     }
 
    async function login(username,password) {
