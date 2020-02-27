@@ -12,7 +12,6 @@ router.post('/login',function (req,res) {
     })
     .catch(e=>{
         response.error(req,res,'info no valida',400)
-    
     })
     })
 

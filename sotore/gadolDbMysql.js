@@ -46,7 +46,7 @@ function list(table) {
 
 function get(table, id) {
     return new Promise((resolve, reject) => {
-         connection.query(`SELECT * FROM ${table} WHERE id=${id}`, (err, data) => {
+         connection.query(`SELECT * FROM ${table} WHERE id="${id}"`, (err, data) => {
             if (err) return reject(err);
             resolve(data);
         })
@@ -63,6 +63,7 @@ function insert(table, data) {
 }
 
 function update(table, data) {
+    console.log('update')
     return new Promise((resolve, reject) => {
         connection.query(`UPDATE ${table} SET ? WHERE id=?`, [data, data.id], (err, result) => {
             if (err) return reject(err);
@@ -71,28 +72,41 @@ function update(table, data) {
     })
 }
 
-function upsert(table, data) {
-    // console.log(data)
-    // console.log("----")
-    // console.log(data.id)
-    // console.log("----")
-    // console.log(table)
-    
-    
-    // if (data && data.id) {
-    //     console.log("existe")
-        // return update(table, data);
-    // } else {
-        // console.log("no existe")
-        return insert(table, data);
-    // }
-}
+async function upsert(table, data) {
+    console.log(table) 
+    console.log(data.id) 
+
+    const row = await get(table, data.id);
+    console.log(row)
+    if (row.length === 0) {
+      return insert(table, data);
+    } else {
+      return update(table, data);
+    }
+  }
+
+// async function upsert(table, data) {
+
+//     // console.log(data)
+//     // console.log("----")
+//     // console.log(data.id)
+//     // console.log("----")
+//     // console.log(table)
+//    let datadb= await 
+//     console.log('los datos ya estan en datadb')
+//     console.log(datadb)
+//     // if (data && data.id) {
+//     //     console.log("existe")
+//     //     return update(table, data);
+//     // } else {
+//     //     console.log("no existe")
+//     //     return insert(table, data);
+//     // }
+// }
 
 // }
 
 function query(table, query) {
-    // console.log("query"+ query)
-    // console.log("table"+ table)
     
     return new Promise((resolve, reject) => {
         connection.query(`SELECT * FROM ${table} WHERE ?`, query, (err, res) => {
