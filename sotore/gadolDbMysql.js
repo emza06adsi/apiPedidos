@@ -35,6 +35,7 @@ function handleCon() {
 
 handleCon();
 
+// USUARIO 
 function list(table) {
     return new Promise( (resolve, reject) => {
         connection.query(`SELECT * FROM ${table}`, (err, data) => {
@@ -85,6 +86,131 @@ async function upsert(table, data) {
     }
   }
 
+function query(table, query) {
+    
+    return new Promise((resolve, reject) => {
+        connection.query(`SELECT * FROM ${table} WHERE ?`, query, (err, res) => {
+            if (err){
+                console.log(err)
+            
+                return reject(err);} 
+          else{
+            console.log(res[0])
+            resolve(res[0] || null);
+          }
+        })
+    })
+}
+
+// USUARIO
+
+// EMPAQUES
+
+function listEmpaques(table) {
+    return new Promise( (resolve, reject) => {
+        connection.query(`
+        SELECT cliente.NOMBRE,
+        pedido.CODIGO_GRAVACION,
+        pedido.CODIGO_CLIENTE,
+        pedido.NOMBRE_PEDIDO,
+        pedido.REFERENCIA_PEDIDO,
+        cajas.NOMBRE_CLIENTE_CAJA,
+        cajas.NOMBRE_GADOL,
+        cajas.NOMBRE_OASIS_CAJA,
+        productos.CODIGO_OASIS,
+        productos.NOMBRE_OASIS,
+        productos.CODIGO_ANTIGUO_OASIS,
+        productos.CANTIDAD,
+        productos.NOMBRE_CLIENTE,
+        productos.COLOR_CLIENTE,
+        productos.FECHA_INGRESO,
+        tallas.NOMBRE_TALLA
+        
+  FROM ${table}
+ INNER JOIN pedido ON cliente.ID = pedido.ID
+ INNER JOIN pedido_cajas ON pedido_cajas.ID_PEDIDO = pedido.ID
+ INNER JOIN cajas ON cajas.ID= pedido_cajas.ID_CAJAS
+ INNER JOIN productos_cajas ON productos_cajas.ID_CAJA = cajas.ID
+ INNER JOIN productos ON productos.ID= productos_cajas.ID_PRODUCTO
+ INNER JOIN tallas ON tallas.ID = productos.ID_TALLAS
+`, (err, data) => {
+            if (err) return reject(err);
+           console.log(data)
+            resolve(data);
+        })
+    })
+}
+
+
+function getEmpaquesCliente(table, id) {
+    return new Promise((resolve, reject) => {
+         connection.query(`
+         SELECT cliente.NOMBRE,
+         pedido.CODIGO_GRAVACION,
+         pedido.CODIGO_CLIENTE,
+         pedido.NOMBRE_PEDIDO,
+         pedido.REFERENCIA_PEDIDO,
+         cajas.NOMBRE_CLIENTE_CAJA,
+         cajas.NOMBRE_GADOL,
+         cajas.NOMBRE_OASIS_CAJA,
+         productos.CODIGO_OASIS,
+         productos.NOMBRE_OASIS,
+         productos.CODIGO_ANTIGUO_OASIS,
+         productos.CANTIDAD,
+         productos.NOMBRE_CLIENTE,
+         productos.COLOR_CLIENTE,
+         productos.FECHA_INGRESO,
+         tallas.NOMBRE_TALLA
+         
+   FROM ${table}
+  INNER JOIN pedido ON cliente.ID = pedido.ID
+  INNER JOIN pedido_cajas ON pedido_cajas.ID_PEDIDO = pedido.ID
+  INNER JOIN cajas ON cajas.ID= pedido_cajas.ID_CAJAS
+  INNER JOIN productos_cajas ON productos_cajas.ID_CAJA = cajas.ID
+  INNER JOIN productos ON productos.ID= productos_cajas.ID_PRODUCTO
+  INNER JOIN tallas ON tallas.ID = productos.ID_TALLAS
+         WHERE cliente.ID=${id}`, (err, data) => {
+            if (err) return reject(err);
+            resolve(data);
+        })
+    })
+}
+function getEmpaquesFecha(table, id) {
+    return new Promise((resolve, reject) => {
+         connection.query(`
+         SELECT cliente.NOMBRE,
+         pedido.CODIGO_GRAVACION,
+         pedido.CODIGO_CLIENTE,
+         pedido.NOMBRE_PEDIDO,
+         pedido.REFERENCIA_PEDIDO,
+         cajas.NOMBRE_CLIENTE_CAJA,
+         cajas.NOMBRE_GADOL,
+         cajas.NOMBRE_OASIS_CAJA,
+         productos.CODIGO_OASIS,
+         productos.NOMBRE_OASIS,
+         productos.CODIGO_ANTIGUO_OASIS,
+         productos.CANTIDAD,
+         productos.NOMBRE_CLIENTE,
+         productos.COLOR_CLIENTE,
+         productos.FECHA_INGRESO,
+         tallas.NOMBRE_TALLA
+         
+   FROM ${table}
+  INNER JOIN pedido ON cliente.ID = pedido.ID
+  INNER JOIN pedido_cajas ON pedido_cajas.ID_PEDIDO = pedido.ID
+  INNER JOIN cajas ON cajas.ID= pedido_cajas.ID_CAJAS
+  INNER JOIN productos_cajas ON productos_cajas.ID_CAJA = cajas.ID
+  INNER JOIN productos ON productos.ID= productos_cajas.ID_PRODUCTO
+  INNER JOIN tallas ON tallas.ID = productos.ID_TALLAS
+         WHERE productos.FECHA_INGRESO="${id}"`, (err, data) => {
+            if (err) return reject(err);
+            resolve(data);
+        })
+    })
+}
+// empaques
+
+
 // async function upsert(table, data) {
 
 //     // console.log(data)
@@ -106,25 +232,13 @@ async function upsert(table, data) {
 
 // }
 
-function query(table, query) {
-    
-    return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM ${table} WHERE ?`, query, (err, res) => {
-            if (err){
-                console.log(err)
-            
-                return reject(err);} 
-          else{
-            console.log(res[0])
-            resolve(res[0] || null);
-          }
-        })
-    })
-}
 
 module.exports = {
     list,
     get,
     upsert,
-    query
+    query,
+    listEmpaques,
+    getEmpaquesCliente,
+    getEmpaquesFecha
 };

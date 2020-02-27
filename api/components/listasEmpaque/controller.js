@@ -6,33 +6,27 @@ module.exports = function (injectedStore) {
         store=require('../../../sotore/gadolDbMysql')
     }
 
-    function list() {
-        return store.list(TABLA);
+    function listEmpaques() {
+        return store.listEmpaques(TABLA);
+    }
+
+    function getEmpaquesCliente(id) {
+        return store.getEmpaquesCliente(TABLA,id);
+    }
+    
+    function getEmpaquesFecha(id) {
+        return store.getEmpaquesFecha(TABLA,id);
+    }
+
+    function insertDatos(data) {
+        listaData={
+
+        }
     }
 
     return {
-        list,
+        listEmpaques,
+        getEmpaquesCliente,
+        getEmpaquesFecha
     };
 }
-
-// const store =require('../../../sotore/gadolDbMysql');
-
-// const TABLA =`cliente`;
-// module.exports= function (injectedStore) {
-
-//     let store=injectedStore;
-
-//     if(!store){
-//         store=require('../../../sotore/gadolDbMysql')
-//     }
-
-
-//     function list() {
-//     console.log("aca toy")
-//         store.list(TABLA)
-//     }
-
-//     return{
-//         list,
-//     }
-// }
