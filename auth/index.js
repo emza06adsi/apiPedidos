@@ -2,8 +2,11 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 const error=require(`../utils/error`);
 const secret = config.jwt.secret;
-
 function sign(data) {
+    console.log('aca estoy')
+    console.log(secret)
+    // console.log(jwt.sign(data, secret)+'...')
+    // return jwt.sign(data, secret);
     return jwt.sign(data, secret);
 }
 
