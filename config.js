@@ -3,7 +3,8 @@ module.exports={
         port:process.env.API_PORT || 3000,
     },
     jwt:{
-        secret:process.env.JWT_SECRET || 'notasecret',
+        // secret:process.env.JWT_SECRET || 'notasecret',
+        secret: process.env.JWT_SECRET || 'notasecret!',
     },
     mysql:{
         host:process.env.MYSQL_HOST || `127.0.0.1`,
