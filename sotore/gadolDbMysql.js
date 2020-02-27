@@ -208,6 +208,22 @@ function getEmpaquesFecha(table, id) {
         })
     })
 }
+
+function insertDatos(table,data) {
+    return new Promise( (resolve, reject) => {
+        connection.query(`SELECT * FROM ${table}`, (err, data) => {
+            if (err) return reject(err);
+            resolve(data);
+        })
+    })
+    // return new Promise((resolve, reject) => {
+    //     connection.query(`INSERT INTO ${table} SET ?`, data, (err, result) => {
+    //         if (err) return reject(err);
+    //         resolve(result);
+    //     })
+    // })
+}
+
 // empaques
 
 
@@ -240,5 +256,6 @@ module.exports = {
     query,
     listEmpaques,
     getEmpaquesCliente,
-    getEmpaquesFecha
+    getEmpaquesFecha,
+    insertDatos
 };

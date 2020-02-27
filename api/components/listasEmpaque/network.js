@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/', listEmpaques);
 router.get('/cliente/:id',getEmpaquesCliente);
 router.get('/fecha/:id',getEmpaquesFecha);
-router.post('/',insertDatos);
+router.post('/',postinsertDatos);
 // functions
 
 function listEmpaques(req, res, next) {
@@ -37,7 +37,7 @@ function getEmpaquesFecha(req,res,next) {
     .catch(next);
 }
 
-function insertDatos(req, res,next) {
+function postinsertDatos(req, res,next) {
     Controller.insertDatos(req.body)
     .then((user)=>{
         response.success(req,res,user,200)
