@@ -23,25 +23,28 @@ module.exports = function (injectedStore) {
        console.log(data.CODIGO_GRAVACION)
 
       let  listaData={
-            NOMBRE: data.NOMBRE,
-            CODIGO_GRAVACION: data.CODIGO_GRAVACION,
-            CODIGO_CLIENTE:  data.CODIGO_CLIENTE,
-            NOMBRE_PEDIDO: data.NOMBRE_PEDIDO,
-            REFERENCIA_PEDIDO: data.REFERENCIA_PEDIDO,
-            NOMBRE_CLIENTE_CAJA: data.NOMBRE_CLIENTE_CAJA,
-            NOMBRE_GADOL:  data.NOMBRE_GADOL,
-            NOMBRE_OASIS_CAJA: data.NOMBRE_OASIS_CAJA,
-            CODIGO_OASIS:  data.CODIGO_OASIS,
-            NOMBRE_OASIS:  data.NOMBRE_OASIS,
-            CODIGO_ANTIGUO_OASIS:  data.CODIGO_ANTIGUO_OASIS,
-            CANTIDAD:  data.CANTIDAD,
-            NOMBRE_CLIENTE:  data.NOMBRE_CLIENTE,
-            COLOR_CLIENTE:  data.COLOR_CLIENTE,
-            FECHA_INGRESO: data.FECHA_INGRESO,
-            NOMBRE_TALLA: data.NOMBRE_TALLA,
+        NOMBRE_cliente:data.NOMBRE_cliente,
+        CODIGO_GRAVACION_PEDIDO: data.CODIGO_GRAVACION_PEDIDO ,
+        CODIGO_CLIENTE_PEDIDO: data.CODIGO_CLIENTE_PEDIDO,
+        NOMBRE_PEDIDO: data.NOMBRE_PEDIDO,
+        REFERENCIA_PEDIDO: data.REFERENCIA_PEDIDO,
+        NOMBRE_OASIS_CAJA: data.NOMBRE_OASIS_CAJA,
+        NOMBRE_GADOL_CAJA: data.NOMBRE_GADOL_CAJA,
+        NOMBRE_CLIENTE_CAJA: data.NOMBRE_CLIENTE_CAJA,
+        CODIGO_OASIS_PRODUCTO: data.CODIGO_OASIS_PRODUCTO,
+        NOMBRE_OASIS_PRODUCTO: data.NOMBRE_OASIS_PRODUCTO,
+        CODIGO_ANTIGUO_OASIS_PRODUCTO: data.CODIGO_ANTIGUO_OASIS_PRODUCTO,
+        CANTIDAD_PRODUCTO: data.CANTIDAD_PRODUCTO,
+        NOMBRE_CLIENTE_PRODUCTO: data.NOMBRE_CLIENTE_PRODUCTO,
+        COLOR_CLIENTE_PRODUCTO:data.COLOR_CLIENTE_PRODUCTO,
+        REFERENCIA_CLIENTE_PRODUCTO:data.REFERENCIA_CLIENTE_PRODUCTO,
+        FECHA_INGRESO: data.FECHA_INGRESO,
+        CODIGO_TALLA:data.CODIGO_TALLA,    
+        NOMBRE_TALLA: data.NOMBRE_TALLA 	
         }
-        console.log(listaData[0]+'  insertDatos')
-        return store.insertDatos(TABLA,listaData);
+        // data=JSON.stringify(listaData)
+        console.log(data+'  insertDatos')
+        return store.insertListaEmpaque(TABLA,listaData);
     }
 
     return {

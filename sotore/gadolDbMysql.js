@@ -127,13 +127,13 @@ function listEmpaques(table) {
         tallas.NOMBRE_TALLA
         
   FROM ${table}
- INNER JOIN pedido ON cliente.ID = pedido.ID
+ INNER JOIN pedido ON cliente.ID = pedido.ID_CLIENTE
  INNER JOIN pedido_cajas ON pedido_cajas.ID_PEDIDO = pedido.ID
  INNER JOIN cajas ON cajas.ID= pedido_cajas.ID_CAJAS
  INNER JOIN productos_cajas ON productos_cajas.ID_CAJA = cajas.ID
  INNER JOIN productos ON productos.ID= productos_cajas.ID_PRODUCTO
  INNER JOIN tallas ON tallas.ID = productos.ID_TALLAS
-`, (err, data) => {
+ `, (err, data) => {
             if (err) return reject(err);
            console.log(data)
             resolve(data);
@@ -209,21 +209,174 @@ function getEmpaquesFecha(table, id) {
     })
 }
 
-function insertDatos(table,data) {
+async function insertListaEmpaque(table,data) {
+    let numeroCliente;
+    let idPedido=await idPedidoS();
+    let idCaja=await idCajaS();
+    let idProducto=await idProductoS();
+    let codigoCliente=await clienteId(data.NOMBRE_cliente);
+    console.log(idProducto[0]['COUNT(ID)'] +1 )
+    
+    if(codigoCliente.length==0){
+        numeroCliente=6
+    }else{
+        numeroCliente=codigoCliente[0]['ID']
+    }    
+    
+    await insertPedido(data,numeroCliente)
+    await insertCaja(data)
+    await insertPedidoCaja(idPedido,idCaja)
+    await insertProductos(data)
+    return new Promise((resolve, reject) => {
+        connection.query(`
+            INSERT INTO productos_cajas(
+            ID_PRODUCTO,
+            ID_CAJA)VALUES(
+            ${idProducto[0]['COUNT(ID)']+1},
+            ${idCaja[0]['COUNT(ID)']+1});`
+        , (err, result) => {
+            if (err) return reject(err);
+            resolve(result);
+        })
+    })
+}
+
+function insertPedido(data,numeroCliente) {
+    return new Promise((resolve, reject) => {
+        connection.query(`
+        INSERT INTO pedido (
+            CODIGO_GRAVACION,
+            CODIGO_CLIENTE,
+            NOMBRE_PEDIDO,
+            REFERENCIA_PEDIDO,
+            ID_CLIENTE)
+            VALUES("${data.CODIGO_GRAVACION_PEDIDO}",
+            "${data.CODIGO_CLIENTE_PEDIDO}",
+            "${data.NOMBRE_PEDIDO}",
+            "${data.REFERENCIA_PEDIDO}",
+            ${numeroCliente});`
+        , (err, result) => {
+            if (err) return reject(err);
+            resolve(result);
+        })
+    })
+    
+}
+function insertCaja(data) {
+    return new Promise((resolve, reject) => {
+        connection.query(`
+            INSERT INTO cajas(
+                NOMBRE_OASIS_CAJA,
+                NOMBRE_GADOL,
+                NOMBRE_CLIENTE_CAJA
+            )  VALUES(
+                "${data.NOMBRE_OASIS_CAJA}",
+                "${data.NOMBRE_GADOL_CAJA }",
+                "${data.NOMBRE_CLIENTE_CAJA }"
+            );`
+        , (err, result) => {
+            if (err) return reject(err);
+            resolve(result);
+        })
+    })
+
+    
+
+}
+function insertPedidoCaja(idPedido,idCaja) {
+    return new Promise((resolve, reject) => {
+        connection.query(`
+        INSERT INTO pedido_cajas(
+            ID_PEDIDO,
+            ID_CAJAS
+        )  VALUES(
+            ${idPedido[0]['COUNT(ID)']+1},
+            ${idCaja[0]['COUNT(ID)']+1 }
+        );`
+        , (err, result) => {
+            if (err) return reject(err);
+            resolve(result);
+        })
+    })
+}
+function insertProductos(data) {
+    return new Promise((resolve, reject) => {
+        connection.query(`
+    INSERT INTO productos(
+            CODIGO_OASIS,
+            NOMBRE_OASIS,
+            CODIGO_ANTIGUO_OASIS,
+            CANTIDAD,
+            NOMBRE_CLIENTE,
+            COLOR_CLIENTE,
+            ID_TALLAS,
+            REFERENCIA_CLIENTE,
+            FECHA_INGRESO
+        )  VALUES(
+            "${data.CODIGO_OASIS_PRODUCTO}",
+            "${data.NOMBRE_OASIS_PRODUCTO}",
+            "${data.CODIGO_ANTIGUO_OASIS_PRODUCTO}",
+            ${data.CANTIDAD_PRODUCTO},
+            "${data.NOMBRE_CLIENTE_PRODUCTO}",
+            "${data.COLOR_CLIENTE_PRODUCTO}",
+            ${data.CODIGO_TALLA},
+            "${data.REFERENCIA_CLIENTE_PRODUCTO}",
+            "${data.FECHA_INGRESO}"
+        );`
+        , (err, result) => {
+            if (err) return reject(err);
+            resolve(result);
+        })
+    })
+    
+}
+
+function idPedidoS() {
     return new Promise( (resolve, reject) => {
-        connection.query(`SELECT * FROM ${table}`, (err, data) => {
+        connection.query(`SELECT COUNT(ID) FROM pedido`, (err, data) => {
             if (err) return reject(err);
             resolve(data);
         })
     })
-    // return new Promise((resolve, reject) => {
-    //     connection.query(`INSERT INTO ${table} SET ?`, data, (err, result) => {
-    //         if (err) return reject(err);
-    //         resolve(result);
-    //     })
-    // })
+};
+
+function idCajaS() {
+    return new Promise( (resolve, reject) => {
+        connection.query(`SELECT COUNT(ID) FROM cajas`, (err, data) => {
+            if (err) return reject(err);
+            resolve(data);
+        })
+    })
 }
 
+function idProductoS() {
+    return new Promise( (resolve, reject) => {
+        connection.query(`SELECT COUNT(ID) FROM productos`, (err, data) => {
+            if (err) return reject(err);
+            resolve(data);
+        })
+    })
+}
+function clienteId(nombre) {
+    return new Promise( (resolve, reject) => {
+        connection.query(`SELECT  ID FROM cliente WHERE NOMBRE="${nombre}"`, (err, data) => {
+            if (err) return reject(err);
+            resolve(data);
+        })
+    })
+}
+// INSERT INTO `gd_database.cajas`(NOMBRE_OASIS,NOMBRE_GADOL,NOMBRE_CLIENTE)VALUES(`316`,`23`,`3481`);
+    // INSERT INTO `gd_database.cliente`(NOMBRE,REFERENCIA_PEDIDO)VALUES(`PRIORITY`,`0`);
+    // INSERT INTO `gd_database.pedido`(CODIGO_GRAVACION,CODIGO_CLIENTE,NOMBRE_PEDIDO,ID_CLIENTE)VALUES(`168`,`9`,`PW`, 1,1	);
+    // INSERT INTO `gd_database.pedido_cajas`(ID_PEDIDO,ID_CAJAS)VALUES(1,1);
+    // INSERT INTO `productos`(CODIGO_OASIS,NOMBRE_OASIS,CODIGO_ANTIGUO_OASIS,CANTIDAD,NOMBRE_CLIENTE,COLOR_CLIENTE,ID_TALLAS)
+    // VALUES
+    // ("6037825","BLUSA M3/4 ESTAMPADO LILA REF. JENNY","PMU010040013",1,"BLUSA M3/4 ESTAMPADO LILA REF. JENNY (ADARA EST)","0","0",1	);
+    // INSERT INTO `productos`(CODIGO_OASIS,NOMBRE_OASIS,CODIGO_ANTIGUO_OASIS,CANTIDAD,NOMBRE_CLIENTE,COLOR_CLIENTE,ID_TALLAS)
+    // INSERT INTO "productos_cajas"(ID_PRODUCTO,ID_CAJA)VALUES(1,1);
+    // INSERT INTO `gd_database.tallas`(CODIGO,NOMBRE)VALUES(`6`,`0L`);
+
+    
 // empaques
 
 
@@ -248,6 +401,19 @@ function insertDatos(table,data) {
 
 // }
 
+//    if(data.NOMBRE_cliente=="PRIORITY"){
+//         codigoCliente=1
+//    }else if(data.NOMBRE_cliente=="ALL SEASON"){
+//         codigoCliente=2
+//    }else if(data.NOMBRE_cliente=="CINTAS"){
+//         codigoCliente=3
+//    } else if(data.NOMBRE_cliente=="EL BODEGON"){
+//         codigoCliente=4
+//    } else if(data.NOMBRE_cliente=="ICO UNIFORMS"){
+//         codigoCliente=5
+//    }else{
+//         codigoCliente=6
+//    }
 
 module.exports = {
     list,
@@ -257,5 +423,6 @@ module.exports = {
     listEmpaques,
     getEmpaquesCliente,
     getEmpaquesFecha,
-    insertDatos
+    insertListaEmpaque,
+
 };
