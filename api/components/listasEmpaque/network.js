@@ -6,37 +6,43 @@ const Controller = require('./index');
 const router = express.Router();
 
 // Routes
-router.get('/', list);
-
+router.get('/', listEmpaques);
+router.get('/cliente/:id',getEmpaquesCliente);
+router.get('/fecha/:id',getEmpaquesFecha);
+router.post('/',postinsertDatos);
 // functions
-function list(req, res, next) {
-    Controller.list()
+
+function listEmpaques(req, res, next) {
+    Controller.listEmpaques()
         .then(data => {
             response.success(req, res, data, 200);
         })
         .catch(next);
 }
 
+function getEmpaquesCliente(req,res,next) {
+    Controller.getEmpaquesCliente(req.params.id)
+    .then((user)=>{
+        response.success(req,res,user,200)
+    })
+    .catch(next);
+}
+
+
+function getEmpaquesFecha(req,res,next) {
+    Controller.getEmpaquesFecha(req.params.id)
+    .then((user)=>{
+        response.success(req,res,user,200)
+    })
+    .catch(next);
+}
+
+function postinsertDatos(req, res,next) {
+    Controller.insertDatos(req.body)
+    .then((user)=>{
+        response.success(req,res,user,200)
+    })
+    .catch(next);
+}
+
 module.exports = router;
-
-// const express =require('express');
-// // const secure=require('./');
-// const response=require(`../../../network/response`)
-// const Controller =require(`./index`);
-
-
-
-// const router=express.Router();
-// //routes
-// router.get('/',list)
-// // funtions
-
-// function list(req,res,next) {
-//     Controller.list()
-//     .then(data=>  {
-//         response.success(req,res,data,200)
-//     })
-//     .catch(next)
-//     }
-
-// module.exports=router
