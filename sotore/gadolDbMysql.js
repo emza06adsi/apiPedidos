@@ -142,6 +142,7 @@ function listEmpaques(table) {
 }
 
 
+
 function getEmpaquesCliente(table, id) {
     return new Promise((resolve, reject) => {
          connection.query(`
@@ -175,6 +176,7 @@ function getEmpaquesCliente(table, id) {
         })
     })
 }
+
 function getEmpaquesFecha(table, id) {
     return new Promise((resolve, reject) => {
          connection.query(`
@@ -209,7 +211,43 @@ function getEmpaquesFecha(table, id) {
     })
 }
 
+
+function getEmpaquesFechaCliente(table,fecha, id) {
+    return new Promise((resolve, reject) => {
+         connection.query(`
+         SELECT cliente.NOMBRE,
+         pedido.CODIGO_GRAVACION,
+         pedido.CODIGO_CLIENTE,
+         pedido.NOMBRE_PEDIDO,
+         pedido.REFERENCIA_PEDIDO,
+         cajas.NOMBRE_CLIENTE_CAJA,
+         cajas.NOMBRE_GADOL,
+         cajas.NOMBRE_OASIS_CAJA,
+         productos.CODIGO_OASIS,
+         productos.NOMBRE_OASIS,
+         productos.CODIGO_ANTIGUO_OASIS,
+         productos.CANTIDAD,
+         productos.NOMBRE_CLIENTE,
+         productos.COLOR_CLIENTE,
+         productos.FECHA_INGRESO,
+         tallas.NOMBRE_TALLA
+         
+   FROM ${table}
+  INNER JOIN pedido ON cliente.ID = pedido.ID
+  INNER JOIN pedido_cajas ON pedido_cajas.ID_PEDIDO = pedido.ID
+  INNER JOIN cajas ON cajas.ID= pedido_cajas.ID_CAJAS
+  INNER JOIN productos_cajas ON productos_cajas.ID_CAJA = cajas.ID
+  INNER JOIN productos ON productos.ID= productos_cajas.ID_PRODUCTO
+  INNER JOIN tallas ON tallas.ID = productos.ID_TALLAS
+         WHERE productos.FECHA_INGRESO="${fecha}" AND cliente.NOMBRE="${id}"`, (err, data) => {
+            if (err) return reject(err);
+            resolve(data);
+        })
+    })
+}
+
 async function insertListaEmpaque(table,data) {
+    // console.log(data)
     let numeroCliente;
     let idPedido=await idPedidoS();
     let idCaja=await idCajaS();
@@ -242,6 +280,7 @@ async function insertListaEmpaque(table,data) {
 }
 
 function insertPedido(data,numeroCliente) {
+    
     return new Promise((resolve, reject) => {
         connection.query(`
         INSERT INTO pedido (
@@ -424,5 +463,5 @@ module.exports = {
     getEmpaquesCliente,
     getEmpaquesFecha,
     insertListaEmpaque,
-
+    getEmpaquesFechaCliente
 };

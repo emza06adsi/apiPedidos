@@ -28,12 +28,15 @@ function createRemoteDB(host,port) {
       }) 
      })
  }
-//  function get(table,id) {}
+ function get(table,id) {
+
+ }
 //  function upsert(table,data) {}
 //  function query(table,query,join) {}
 return {
     list,
 }
+
 }
 
 

@@ -9,6 +9,8 @@ const router = express.Router();
 router.get('/', listEmpaques);
 router.get('/cliente/:id',getEmpaquesCliente);
 router.get('/fecha/:id',getEmpaquesFecha);
+router.get('/fecha/fechaCliente/:id',getEmpaquesFechaCliente);
+
 router.post('/',postinsertDatos);
 // functions
 
@@ -31,6 +33,15 @@ function getEmpaquesCliente(req,res,next) {
 
 function getEmpaquesFecha(req,res,next) {
     Controller.getEmpaquesFecha(req.params.id)
+    .then((user)=>{
+        response.success(req,res,user,200)
+    })
+    .catch(next);
+}
+
+
+function getEmpaquesFechaCliente(req,res,next) {
+    Controller.getEmpaquesFechaCliente(req.params.id)
     .then((user)=>{
         response.success(req,res,user,200)
     })
