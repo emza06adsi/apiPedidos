@@ -211,10 +211,11 @@ function getEmpaquesFecha(table, id) {
     })
 }
 
-
-function getEmpaquesFechaCliente(table,fecha, id) {
+function getResumenFacturas(TABLA,id) {
+    console.log(id)
     return new Promise((resolve, reject) => {
          connection.query(`
+        
          SELECT cliente.NOMBRE,
          pedido.CODIGO_GRAVACION,
          pedido.CODIGO_CLIENTE,
@@ -232,14 +233,13 @@ function getEmpaquesFechaCliente(table,fecha, id) {
          productos.FECHA_INGRESO,
          tallas.NOMBRE_TALLA
          
-   FROM ${table}
-  INNER JOIN pedido ON cliente.ID = pedido.ID
+   FROM cliente
+  INNER JOIN pedido ON cliente.ID = pedido.ID_CLIENTE
   INNER JOIN pedido_cajas ON pedido_cajas.ID_PEDIDO = pedido.ID
   INNER JOIN cajas ON cajas.ID= pedido_cajas.ID_CAJAS
   INNER JOIN productos_cajas ON productos_cajas.ID_CAJA = cajas.ID
   INNER JOIN productos ON productos.ID= productos_cajas.ID_PRODUCTO
-  INNER JOIN tallas ON tallas.ID = productos.ID_TALLAS
-         WHERE productos.FECHA_INGRESO="${fecha}" AND cliente.NOMBRE="${id}"`, (err, data) => {
+  INNER JOIN tallas ON tallas.ID = productos.ID_TALLAS where productos.FECHA_INGRESO="${id[0]}" AND cliente.NOMBRE="${id[1]}"`, (err, data) => {
             if (err) return reject(err);
             resolve(data);
         })
@@ -463,5 +463,5 @@ module.exports = {
     getEmpaquesCliente,
     getEmpaquesFecha,
     insertListaEmpaque,
-    getEmpaquesFechaCliente
+    getResumenFacturas,
 };

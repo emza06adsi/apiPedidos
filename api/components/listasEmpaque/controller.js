@@ -17,11 +17,13 @@ module.exports = function(injectedStore) {
   function getEmpaquesFecha(id) {
     return store.getEmpaquesFecha(TABLA, id);
   }
-  function getEmpaquesFechaCliente(id) {
-    arregloData=id.split("&")
-    var fecha=arregloData[0]
-    var cliente=arregloData[1]
-    return store.getEmpaquesFechaCliente(TABLA,fecha, cliente);
+  function getResumenFacturas(id) {
+    // arregloData=id.split("&")
+    // var fecha=arregloData[0]
+    // var cliente=arregloData[1]
+  console.log(id)
+   let datos=id.split('*')
+    return store.getResumenFacturas(TABLA,datos);
   }
 
   function insertDatos(data) {
@@ -58,6 +60,6 @@ module.exports = function(injectedStore) {
     getEmpaquesCliente,
     getEmpaquesFecha,
     insertDatos,
-    getEmpaquesFechaCliente
+    getResumenFacturas, 
   };
 };
