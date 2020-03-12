@@ -253,36 +253,43 @@ async function insertListaEmpaque(table,data) {
     let idCaja=await idCajaS();
     let idProducto=await idProductoS();
     let codigoCliente=await clienteId(data.NOMBRE_cliente);
-    console.log(idProducto[0]['COUNT(ID)'] +1 )
-    
-    if(codigoCliente.length==0){
-        numeroCliente=6
-    }else{
+    // console.log(idProducto[0]['COUNT(ID)'] +1 )
+    console.log(data.NOMBRE_TALLA)
+    // if(codigoCliente.length==0){
+    //     numeroCliente=6
+    // }else{
         numeroCliente=codigoCliente[0]['ID']
-    }    
-    
+    // }    
+    console.log(data)
     await insertPedido(data,numeroCliente)
-    await insertCaja(data)
-    await insertPedidoCaja(idPedido,idCaja)
+    // await insertCaja(data)
+    // await insertPedidoCaja(idPedido,idCaja)
+  
     await insertProductos(data)
-    return new Promise((resolve, reject) => {
-        connection.query(`
-            INSERT INTO productos_cajas(
-            ID_PRODUCTO,
-            ID_CAJA)VALUES(
-            ${idProducto[0]['COUNT(ID)']+1},
-            ${idCaja[0]['COUNT(ID)']+1});`
-        , (err, result) => {
-            if (err) return reject(err);
-            resolve(result);
-        })
-    })
+    // return new Promise((resolve, reject) => {
+ 
+    //     connection.query(`
+    //     INSERT INTO productos_cajas(
+    //         ID_PRODUCTO,
+    //         ID_CAJA)VALUES(
+    //         ${idProducto[0]['COUNT(ID)']+1},
+    //         ${idCaja[0]['COUNT(ID)']+1});`
+    //     , (err, result) => {
+    //         if (err) return reject(err);
+    //         resolve(result);
+    //     })
+    // })
 }
 
 function insertPedido(data,numeroCliente) {
-    
+    console.log(data.CODIGO_GRAVACION_PEDIDO)
+    console.log(data.CODIGO_CLIENTE_PEDIDO)
+    console.log(data.NOMBRE_PEDIDO)
+    console.log(data.REFERENCIA_PEDIDO)
+
     return new Promise((resolve, reject) => {
-        connection.query(`
+        
+            connection.query(`
         INSERT INTO pedido (
             CODIGO_GRAVACION,
             CODIGO_CLIENTE,
@@ -302,9 +309,13 @@ function insertPedido(data,numeroCliente) {
     
 }
 function insertCaja(data) {
+    console.log(data.NOMBRE_OASIS_CAJA)
+    console.log(data.NOMBRE_GADOL_CAJA)
+    console.log(data.NOMBRE_CLIENTE_CAJA)
     return new Promise((resolve, reject) => {
         connection.query(`
-            INSERT INTO cajas(
+            
+        INSERT INTO cajas(
                 NOMBRE_OASIS_CAJA,
                 NOMBRE_GADOL,
                 NOMBRE_CLIENTE_CAJA
@@ -323,6 +334,8 @@ function insertCaja(data) {
 
 }
 function insertPedidoCaja(idPedido,idCaja) {
+    console.log(idPedido[0]['COUNT(ID)']+1)
+    console.log(idCaja[0]['COUNT(ID)']+1)
     return new Promise((resolve, reject) => {
         connection.query(`
         INSERT INTO pedido_cajas(
@@ -339,6 +352,15 @@ function insertPedidoCaja(idPedido,idCaja) {
     })
 }
 function insertProductos(data) {
+    console.log(data.CODIGO_OASIS_PRODUCTO)
+    console.log(data.NOMBRE_OASIS_PRODUCTO)
+    console.log(data.CODIGO_ANTIGUO_OASIS_PRODUCTO)
+    console.log(data.CANTIDAD_PRODUCTO)
+    console.log(data.NOMBRE_CLIENTE_PRODUCTO)
+    console.log(data.COLOR_CLIENTE_PRODUCTO)
+    console.log(data.CODIGO_TALLA +"codigo talla"+ data.NOMBRE_TALLA)
+    console.log(data.REFERENCIA_CLIENTE_PRODUCTO)
+    console.log(data.FECHA_INGRESO)
     return new Promise((resolve, reject) => {
         connection.query(`
     INSERT INTO productos(
