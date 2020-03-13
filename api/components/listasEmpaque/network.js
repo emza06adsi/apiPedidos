@@ -60,18 +60,18 @@ async function postinsertDatos(req, res, next) {
   let datosObject = JSON.parse(datosJson);
   let fecha = datos.FECHA.fecha;
   i = 0;
-  datosObject.map(data => {
-    Controller.insertDatos(data,fecha)
-    //   .then(user => {
-    //     response.success(req, res, user, 200);
-    //   })
-    //   .catch(next);
+  // datosObject.map(data => {
+    Controller.insertDatos(datosObject,fecha)
+      .then(user => {
+        response.success(req, res, user, 200);
+      })
+      .catch(next);
     
     
         // console.log(data)
        i++
         console.log(i)
-  });
+  // });
   // console.log(datos)
   //    var texto =JSON.parse(datos)
   //     console.log(texto[0])

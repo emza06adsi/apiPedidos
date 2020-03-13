@@ -29,37 +29,38 @@ module.exports = function(injectedStore) {
   function insertDatos(data,fecha) {
     // console.log(fecha)
     // console.log(data)
-
+    return store.insertListaEmpaque(fecha, data);
+ 
     // console.lo g(data.children[0].value)
     
 
-  let CODIGOCLIENTEPEDIDOYNOMBREPEDIDOYREFERENCIA_PEDIDO=data.children[3].value.split('-')
-  let NOMBREOASISCAJAyNOMBRECLIENTECAJA=data.children[15].value.split('-')
-  let vectorRefeerncia=data.children[17].value.split('-')
-  let nombreCliente=data.children[18].value.slice(0,3)
+//   let CODIGOCLIENTEPEDIDOYNOMBREPEDIDOYREFERENCIA_PEDIDO=data.children[3].value.split('-')
+//   let NOMBREOASISCAJAyNOMBRECLIENTECAJA=data.children[15].value.split('-')
+//   let vectorRefeerncia=data.children[17].value.split('-')
+//   let nombreCliente=data.children[18].value.slice(0,3)
   
-  let datosJson = {
-    NOMBRE_cliente:nombreCliente,
-    CODIGO_GRAVACION_PEDIDO:data.children[12].value,
-    CODIGO_CLIENTE_PEDIDO: CODIGOCLIENTEPEDIDOYNOMBREPEDIDOYREFERENCIA_PEDIDO[1],
-    NOMBRE_PEDIDO: CODIGOCLIENTEPEDIDOYNOMBREPEDIDOYREFERENCIA_PEDIDO[0],
-    REFERENCIA_PEDIDO: CODIGOCLIENTEPEDIDOYNOMBREPEDIDOYREFERENCIA_PEDIDO[2],
-    NOMBRE_OASIS_CAJA:NOMBREOASISCAJAyNOMBRECLIENTECAJA[0] ,
-    NOMBRE_GADOL_CAJA: data.children[16].value,
-    NOMBRE_CLIENTE_CAJA: NOMBREOASISCAJAyNOMBRECLIENTECAJA[1],
-    CODIGO_OASIS_PRODUCTO: data.children[16].value,
-    NOMBRE_OASIS_PRODUCTO: data.children[17].value,
-    CODIGO_ANTIGUO_OASIS_PRODUCTO:data.children[18].value ,
-    CANTIDAD_PRODUCTO: data.children[19].value,
-    NOMBRE_CLIENTE_PRODUCTO:data.children[17].value,
-    COLOR_CLIENTE_PRODUCTO: "0",
-    REFERENCIA_CLIENTE_PRODUCTO: vectorRefeerncia[1],
-    FECHA_INGRESO: fecha,
-    CODIGO_TALLA: data.children[8].value,
-    NOMBRE_TALLA: data.children[9].value
-  };
-console.log(datosJson)
-     store.insertListaEmpaque(TABLA, datosJson);
+//   let datosJson = {
+//     NOMBRE_cliente:nombreCliente,
+//     CODIGO_GRAVACION_PEDIDO:data.children[12].value,
+//     CODIGO_CLIENTE_PEDIDO: CODIGOCLIENTEPEDIDOYNOMBREPEDIDOYREFERENCIA_PEDIDO[1],
+//     NOMBRE_PEDIDO: CODIGOCLIENTEPEDIDOYNOMBREPEDIDOYREFERENCIA_PEDIDO[0],
+//     REFERENCIA_PEDIDO: CODIGOCLIENTEPEDIDOYNOMBREPEDIDOYREFERENCIA_PEDIDO[2],
+//     NOMBRE_OASIS_CAJA:NOMBREOASISCAJAyNOMBRECLIENTECAJA[0] ,
+//     NOMBRE_GADOL_CAJA: data.children[16].value,
+//     NOMBRE_CLIENTE_CAJA: NOMBREOASISCAJAyNOMBRECLIENTECAJA[1],
+//     CODIGO_OASIS_PRODUCTO: data.children[16].value,
+//     NOMBRE_OASIS_PRODUCTO: data.children[17].value,
+//     CODIGO_ANTIGUO_OASIS_PRODUCTO:data.children[18].value ,
+//     CANTIDAD_PRODUCTO: data.children[19].value,
+//     NOMBRE_CLIENTE_PRODUCTO:data.children[17].value,
+//     COLOR_CLIENTE_PRODUCTO: "0",
+//     REFERENCIA_CLIENTE_PRODUCTO: vectorRefeerncia[1],
+//     FECHA_INGRESO: fecha,
+//     CODIGO_TALLA: data.children[8].value,
+//     NOMBRE_TALLA: data.children[9].value
+//   };
+// console.log(datosJson)
+    //  store.insertListaEmpaque(TABLA, datosJson);
 
     // let listaData = {
     //   NOMBRE_cliente: data.NOMBRE_cliente,
@@ -85,7 +86,6 @@ console.log(datosJson)
     // // console.log(listaData);
     // console.log(listaData)
     
-    // return store.insertListaEmpaque(TABLA, listaData);
   }
 
   return {
