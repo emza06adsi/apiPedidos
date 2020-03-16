@@ -15,6 +15,7 @@ router.post("/", postinsertDatos);
 // functions
 
 // router.get('/fecha/fechaCliente/:id',getEmpaquesFechaCliente);
+router.get("/fecha/ico/:id", getDataIco);
 router.get("/fecha/fecha/:id", getResumenFacturas);
 
 // funciones listas de empaque
@@ -46,6 +47,16 @@ function getEmpaquesFecha(req, res, next) {
 function getResumenFacturas(req, res, next) {
   console.log(`entro`);
   Controller.getResumenFacturas(req.params.id)
+    .then(user => {
+      response.success(req, res, user, 200);
+    })
+    .catch(next);
+}
+
+
+function getDataIco(req, res, next) {
+  console.log(`entro`);
+  Controller.getDataIco(req.params.id)
     .then(user => {
       response.success(req, res, user, 200);
     })

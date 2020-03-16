@@ -216,31 +216,41 @@ function getResumenFacturas(TABLA,id) {
     return new Promise((resolve, reject) => {
          connection.query(`
     SELECT 
-   cliente.NOMBRE,
-    pedido.CODIGO_GRAVACION,
-  pedido.CODIGO_CLIENTE,
-      pedido.NOMBRE_PEDIDO,
-     pedido.REFERENCIA_PEDIDO,
-     cajas.NOMBRE_CLIENTE_CAJA,
-      cajas.NOMBRE_GADOL,
-      cajas.NOMBRE_OASIS_CAJA,
-   productos.CODIGO_OASIS,
-     productos.NOMBRE_OASIS,
-     productos.CODIGO_ANTIGUO_OASIS,
-     productos.CANTIDAD,
-       productos.NOMBRE_CLIENTE,
-    productos.COLOR_CLIENTE,
-      productos.FECHA_INGRESO,
+        cliente.NOMBRE,
+        pedido.CODIGO_GRAVACION,
+        pedido.CODIGO_CLIENTE,
+        pedido.NOMBRE_PEDIDO,
+        pedido.REFERENCIA_PEDIDO,
+        cajas.NOMBRE_CLIENTE_CAJA,
+        cajas.NOMBRE_GADOL,
+        cajas.NOMBRE_OASIS_CAJA,
+        productos.CODIGO_OASIS,
+        productos.NOMBRE_OASIS,
+        productos.CODIGO_ANTIGUO_OASIS,
+        productos.CANTIDAD,
+        productos.NOMBRE_CLIENTE,
+        productos.COLOR_CLIENTE,
+        productos.FECHA_INGRESO,
         tallas.NOMBRE_TALLA
-        
-  FROM tallas
-  INNER JOIN productos on tallas.ID = productos.ID_TALLAS
- INNER JOIN productos_cajas on  productos.ID = productos_cajas.ID_PRODUCTO
- INNER JOIN cajas ON productos_cajas.ID_CAJA= cajas.ID 
- INNER JOIN pedido_cajas ON cajas.ID = pedido_cajas.ID_CAJAS
-  INNER JOIN pedido ON pedido_cajas.ID_CAJAS = pedido.ID
-  INNER JOIN cliente on pedido.ID_CLIENTE= cliente.ID
-  where productos.FECHA_INGRESO="${id[0]}" AND cliente.NOMBRE="${id[1]}"`, (err, data) => {
+    FROM tallas
+        INNER JOIN productos on tallas.ID = productos.ID_TALLAS
+        INNER JOIN productos_cajas on  productos.ID = productos_cajas.ID_PRODUCTO
+        INNER JOIN cajas ON productos_cajas.ID_CAJA= cajas.ID 
+        INNER JOIN pedido_cajas ON cajas.ID = pedido_cajas.ID_CAJAS
+        INNER JOIN pedido ON pedido_cajas.ID_CAJAS = pedido.ID
+        INNER JOIN cliente on pedido.ID_CLIENTE= cliente.ID
+    where productos.FECHA_INGRESO="${id[0]}" AND cliente.NOMBRE="${id[1]}"`, (err, data) => {
+            if (err) return reject(err);
+            resolve(data);
+        })
+    })
+}
+
+function getDataIco(TABLA,id) {
+    console.log(id)
+    return new Promise((resolve, reject) => {
+         connection.query(`select * from productos_por_referencia WHERE ID = ${id}`,
+          (err, data) => {
             if (err) return reject(err);
             resolve(data);
         })
@@ -519,4 +529,5 @@ module.exports = {
     getEmpaquesFecha,
     insertListaEmpaque,
     getResumenFacturas,
+    getDataIco,
 };

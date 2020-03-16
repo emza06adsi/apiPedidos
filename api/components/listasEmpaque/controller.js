@@ -25,7 +25,10 @@ module.exports = function(injectedStore) {
    let datos=id.split('*')
     return store.getResumenFacturas(TABLA,datos);
   }
-
+  function getDataIco(id) {
+    return store.getDataIco(TABLA,id);
+  }
+  
   function insertDatos(data,fecha) {
     // console.log(fecha)
     // console.log(data)
@@ -93,6 +96,7 @@ module.exports = function(injectedStore) {
     getEmpaquesCliente,
     getEmpaquesFecha,
     insertDatos,
-    getResumenFacturas, 
+    getResumenFacturas,
+    getDataIco, 
   };
 };
