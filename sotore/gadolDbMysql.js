@@ -531,3 +531,21 @@ module.exports = {
     getResumenFacturas,
     getDataIco,
 };
+// "bcrypt": {
+//     "version": "4.0.0",
+//     "resolved": "https://registry.npmjs.org/bcrypt/-/bcrypt-4.0.0.tgz",
+//     "integrity": "sha512-UroxVJgmpeek3uxjY0IgtVtegM8EQqSLXnc5HE59m388MGZr0wPpRBqKJTaTraY3YEJOo1XIczExiEY9eeOCmg==",
+//     "requires": {
+//       "node-addon-api": "^2.0.0",
+//       "node-pre-gyp": "0.14.0"
+// //     }},
+//     "bcrypt-pbkdf": {
+//         "version": "1.0.2",
+//         "resolved": "https://registry.npmjs.org/bcrypt-pbkdf/-/bcrypt-pbkdf-1.0.2.tgz",
+//         "integrity": "sha1-pDAdOJtqQ/m2f/PKEaP2Y342Dp4=",
+//         "requires": {
+//           "tweetnacl": "^0.14.3"
+//         }
+//       },
+// json
+    // "bcrypt": "^4.0.0",
