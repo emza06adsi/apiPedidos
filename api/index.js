@@ -32,7 +32,7 @@ app.use('/api/user',user);
 app.use('/api/auth',auth);
 app.use('/api/listasEmpaque',listasEmpaque);
 app.use(errors);
-app.listen( config.api.port,()=>{
+app.listen(4567,()=>{
     console.log('Api escuchando en el puerto',config.api.port);
 })
 // app.use((req, res, next) => {
