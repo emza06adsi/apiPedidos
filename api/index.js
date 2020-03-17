@@ -35,6 +35,8 @@ app.use(errors);
 app.listen( config.api.port,()=>{
     console.log('Api escuchando en el puerto',config.api.port);
 })
+// var port_number = server.listen(process.env.PORT || 3000);
+// app.listen(port_number);
 // app.use((req, res, next) => {
 //     res.header('Access-Control-Allow-Origin', 'http://localhost:3000/');
 //     res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
