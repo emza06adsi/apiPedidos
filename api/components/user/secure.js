@@ -1,38 +1,38 @@
-// const auth = require('../../../auth');
+const auth = require('../../../auth');
+
+module.exports = function checkAuth(action) {
+    function middleware(req, res, next) {
+        switch(action) {
+            case 'update':
+                const owner = req.body.id;
+                auth.check.own(req, owner);
+                next();
+                break;
+
+            default:
+                next();
+        }
+    }
+
+    return middleware;
+}
+
+
+// const auth=require('../../../auth')
 
 // module.exports = function checkAuth(action) {
-//     function middleware(req, res, next) {
-//         switch(action) {
+    
+//     function midelware(req,res,next) {
+//         switch(action){
 //             case 'update':
-//                 const owner = req.body.id;
-//                 auth.check.own(req, owner);
-//                 next();
+//                 const owner=req.body.id
+//                 auth.check.owh(req,owner)
 //                 break;
-
+            
 //             default:
-//                 next();
+//                 next()    
+
 //         }
 //     }
-
 //     return middleware;
 // }
-
-
-// // const auth=require('../../../auth')
-
-// // module.exports = function checkAuth(action) {
-    
-// //     function midelware(req,res,next) {
-// //         switch(action){
-// //             case 'update':
-// //                 const owner=req.body.id
-// //                 auth.check.owh(req,owner)
-// //                 break;
-            
-// //             default:
-// //                 next()    
-
-// //         }
-// //     }
-// //     return middleware;
-// // }
