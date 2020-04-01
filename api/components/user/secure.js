@@ -13,7 +13,6 @@ module.exports = function checkAuth(action) {
                 next();
         }
     }
-
     return middleware;
 }
 

@@ -1,13 +1,16 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 const error=require(`../utils/error`);
-const secret = config.jwt.secret;
+let secret = config.jwt.secret;
+
 function sign(data) {
+    
+
     console.log('aca estoy')
     console.log(secret)
-    // console.log(jwt.sign(data, secret)+'...')
-    // return jwt.sign(data, secret);
-    return jwt.sign(data, secret);
+    console.log(jwt.sign(data[0], secret)+'...')
+    // // return jwt.sign(data, secret);
+    return jwt.sign(data[0], secret,{ expiresIn: 30 });
 }
 
 function verify(token) {
@@ -52,4 +55,5 @@ function decodeHeader(req) {
 module.exports = {
     sign,
     check,
+    getToken,
 };

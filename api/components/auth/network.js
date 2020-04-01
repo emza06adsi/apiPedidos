@@ -25,7 +25,7 @@ const Controller = require('./index');
 const router = express.Router();
 
 router.post('/login', function(req, res, next) {
-    Controller.login(req.body.username, req.body.password)
+    Controller.login(req.body.correo, req.body.contrasena)
         .then(token => {
             response.success(req, res, token, 200);
         })
