@@ -4,22 +4,13 @@ const Controler = require('./index');
 const router = express.Router();
 
 
-router.get("/",listarPedidos)
-router.get("/:id",listarPedidosId)
+router.get("/",listarPedidos);
+router.get("/:id",listarPedidosId);
+router.get("/pedido/activo",activos);
+router.get("/pedido/inactivos",inactivos);
 router.post("/crearPedidos",crearPedidos)
-router.put("/modificarEstadoPedido",modificarEstadoPedido)
+router.put("/entregarPedido",entregarPedido)
 router.delete("/eliminarPedidos",eliminarPedidos)
-router.get("/PedidosActivos",PedidosActivos)
-
-function PedidosActivos(req,res,next) {
-    
-    
-    // Controler.PedidosActivos()
-    // .then((lista)=>{
-    //     response.success(req,res,lista,200)
-    // })
-    // .catch(next)
-}
 
 function listarPedidos(req,res,next) {
     Controler.listarPedidos()
@@ -37,6 +28,23 @@ function listarPedidosId(req,res,next) {
     .catch(next)
 }
 
+
+function inactivos(req,res,next) {
+    
+    Controler.PedidosInactivos()
+    .then((lista)=>{
+        response.success(req,res,lista,200)
+    })
+    .catch(next)
+}
+function activos(req,res,next) {
+    
+       Controler.PedidosActivos()
+       .then((lista)=>{
+           response.success(req,res,lista,200)
+       })
+       .catch(next)
+   }
 function crearPedidos(req,res,next) {
 // res.send(req.body)
     //    console.log(req.body)
@@ -47,13 +55,13 @@ Controler.crearPedidos(req.body)
     .catch(next)
 }
 
-function modificarEstadoPedido(req,res,next) {
-    Controler.modificarEstadoPedido(req.body)
-    .then((datos)=>{
-        response.success(req,res,datos,200)
-    })
-    .catch(next)
-}
+// function modificarEstadoPedido(req,res,next) {
+//     Controler.modificarEstadoPedido(req.body)
+//     .then((datos)=>{
+//         response.success(req,res,datos,200)
+//     })
+//     .catch(next)
+// }
 
 function entregarPedido(req,res,next) {
     Controler.entregarPedido(req.body)

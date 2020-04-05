@@ -194,15 +194,33 @@ function crearPaquetes(usuario,canidad,idProducto,idPedido) {
     })
 }
 function PedidosActivos() {
-    console.log(`5457`)
-    // return new Promise((resolve, reject) => {
-    //     connection.query(`call PedidosActivos()`, (err, result) => {
-    //         if (err) return reject(err);
-    //         resolve(result);
-    //     })
+    return new Promise((resolve, reject) => {
+        connection.query(`call PedidosActivos()`, (err, result) => {
+            if (err) return reject(err);
+            resolve(result);
+        })
 
-    // })
+    })
 }
+function PedidosInactivos() {
+    return new Promise((resolve, reject) => {
+        connection.query(`call PedidosInactivos()`, (err, result) => {
+            if (err) return reject(err);
+            resolve(result);
+        })
+
+    })
+}
+function entregarPedido(data) {
+    return new Promise((resolve, reject) => {
+        connection.query(`call entregarPedido(?)`,[data.id], (err, result) => {
+            if (err) return reject(err);
+            resolve(result);
+        })
+
+    })
+}
+
 // EMPAQUES
 //pedidos
 
@@ -221,4 +239,6 @@ module.exports = {
     crearPedidos,
     crearPaquetes,
     PedidosActivos,
+    PedidosInactivos,
+    entregarPedido,
 };

@@ -45,11 +45,15 @@ module.exports = function (injectedStore) {
     }
     
     function PedidosActivos() {
-        console.log("54")
-        // return store.PedidosActivos();
+        
+        return store.PedidosActivos();
     }
     
 
+    function PedidosInactivos() {
+        
+        return store.PedidosInactivos();
+    }
     function modificarEstadoPedido(data) {
         return store.modificarEstadoPedido(data);
     }
@@ -69,5 +73,6 @@ module.exports = function (injectedStore) {
         eliminarPedidos,
         entregarPedido,
         PedidosActivos,
+        PedidosInactivos,
     };
 }
