@@ -221,6 +221,15 @@ function entregarPedido(data) {
     })
 }
 
+function paquetesPorId(id) {
+    return new Promise((resolve, reject) => {
+        connection.query(`call paquetesId(${id}) `, (err, data) => {
+            if (err) return reject(err);
+            resolve(data);
+        })
+    })
+}
+
 // EMPAQUES
 //pedidos
 
@@ -241,4 +250,5 @@ module.exports = {
     PedidosActivos,
     PedidosInactivos,
     entregarPedido,
+    paquetesPorId,
 };

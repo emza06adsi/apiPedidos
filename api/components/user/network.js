@@ -6,7 +6,7 @@ const Controller =require(`./index`);
 
 const router=express.Router();
 //routes
-router.get('/',secure('update'),list)
+router.get('/',list)
 router.get('/:id',secure('update'),get)
 router.post('/',upsert)
 router.put('/', secure('update'),upsert)

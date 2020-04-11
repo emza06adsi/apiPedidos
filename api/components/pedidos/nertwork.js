@@ -5,12 +5,24 @@ const router = express.Router();
 
 
 router.get("/",listarPedidos);
-router.get("/:id",listarPedidosId);
+router.get("/:id",paquetesPorId);
 router.get("/pedido/activo",activos);
 router.get("/pedido/inactivos",inactivos);
+router.get/("/paquetes/:id",paquetesPorId)
 router.post("/crearPedidos",crearPedidos)
 router.put("/entregarPedido",entregarPedido)
 router.delete("/eliminarPedidos",eliminarPedidos)
+
+
+
+
+function paquetesPorId(req,res,next) {
+    Controler.paquetesPorId(req.params.id)
+    .then((lista)=>{
+        response.success(req,res,lista,200)
+    })
+    .catch(next);
+}
 
 function listarPedidos(req,res,next) {
     Controler.listarPedidos()
