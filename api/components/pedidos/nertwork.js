@@ -18,7 +18,7 @@ router.delete("/eliminarPedidos",eliminarPedidos)
 
 function paquetesPorId(req,res,next) {
     Controler.paquetesPorId(req.params.id)
-    .then((lista)=>{
+    .then((lista)=>{    
         response.success(req,res,lista,200)
     })
     .catch(next);
