@@ -42,12 +42,13 @@ function productosid(req, res, next) {
     .catch(next);
 }
 function ingresarProductos(req, res, next) {
+  console.log(req.body)
   // res.send(req.body)
-  Controller.ingresarProductos(req.body)
-    .then(user => {
-      response.success(req, res, user, 200);
-    })
-    .catch(next);
+  // Controller.ingresarProductos(req.body)
+  //   .then(user => {
+  //     response.success(req, res, user, 200);
+  //   })
+  //   .catch(next);
 }
 
 function agregarProductos(req, res, next) {
