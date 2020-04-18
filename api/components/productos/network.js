@@ -1,16 +1,16 @@
 const express = require("express");
-
 const response = require("../../../network/response");
 const Controller = require("./index");
-
 const router = express.Router();
+const fs = require('fs');
+
 
 // Routes
 router.get("/", productos);
 router.get("/:id", productosid);
 router.post("/", ingresarProductos)
-router.put("/",agregarProductos)
-router.put("/venta",venderProductos)
+router.put("/", agregarProductos)
+router.put("/venta", venderProductos)
 // router.get("/cliente/:id", getEmpaquesCliente);
 // router.get("/fecha/:id", getEmp      aquesFecha);
 // router.get('/fecha/fechaCliente/:id',getEmpaquesFechaCliente);
@@ -42,15 +42,13 @@ function productosid(req, res, next) {
     .catch(next);
 }
 function ingresarProductos(req, res, next) {
-  console.log(req.body)
-  // res.send(req.body)
-  // Controller.ingresarProductos(req.body)
-  //   .then(user => {
-  //     response.success(req, res, user, 200);
-  //   })
-  //   .catch(next);
-}
+  Controller.ingresarProductos(req.body)
+    // .then(user => {
+    //   response.success(req, res, user, 200);
+    // })
+    // .catch(next);
 
+}
 function agregarProductos(req, res, next) {
   // res.send(req.body)
   Controller.agregarProductos(req.body)
@@ -110,8 +108,8 @@ function venderProductos(req, res, next) {
 //         response.success(req, res, user, 200);
 //       })
 //       .catch(next);
-    
-    
+
+
 //         // console.log(data)
 //        i++
 //         console.log(i)
@@ -133,3 +131,37 @@ function venderProductos(req, res, next) {
 // }
 
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

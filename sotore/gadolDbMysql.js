@@ -104,9 +104,10 @@ function productosid(id) {
     })
 }
 
-function ingresarProductos(data) {
+function ingresarProductos(img,data) {
+    
     return new Promise((resolve, reject) => {
-        connection.query(`call ingresarProductos(?,?,?,?,?)`, [data.pro_id, data.pro_tipo_producto, data.pro_nombre, data.pro_cantidad, data.pro_valor], (err, result) => {
+        connection.query(`call ingresarProductos(?,?,?,?,?,?)`, [data.codigo, data.tipo, data.nombre, data.cantidad, data.precio,img], (err, result) => {
             if (err) return reject(err);
             resolve(data);
         })
@@ -115,15 +116,15 @@ function ingresarProductos(data) {
 }
 
 
-function ingresarProductos(data) {
-    return new Promise((resolve, reject) => {
-        connection.query(`call ingresarProductos(?,?,?,?,?)`, [data.pro_id, data.pro_tipo_producto, data.pro_nombre, data.pro_cantidad, data.pro_valor], (err, result) => {
-            if (err) return reject(err);
-            resolve(data);
-        })
+// function ingresarProductos(data) {
+//     return new Promise((resolve, reject) => {
+//         connection.query(`call ingresarProductos(?,?,?,?,?)`, [data.pro_id, data.pro_tipo_producto, data.pro_nombre, data.pro_cantidad, data.pro_valor], (err, result) => {
+//             if (err) return reject(err);
+//             resolve(data);
+//         })
 
-    })
-}
+//     })
+// }
 
 
 async function agregarProductos(data) {

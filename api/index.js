@@ -1,6 +1,7 @@
 const express = require ('express');
 const bodyParser= require(`body-parser`);
 const config=require('../config.js');
+// const formidableMiddleware = require('express-formidable');
 // const user =require(`../components/user/network`);
 
 const user =require('./components/user/network');
@@ -27,7 +28,11 @@ next();
     });
 });
 app.use(bodyParser.json());
-
+// app.use(formidableMiddleware({
+//     encoding: 'utf-8',
+//     uploadDir: 'productos/public',
+//     multiples: true
+// }));
 //router
 
 app.use('/api/user',user);
