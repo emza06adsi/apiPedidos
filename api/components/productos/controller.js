@@ -36,7 +36,9 @@ module.exports = function (injectedStore) {
   }
 
   function agregarProductos(data) {
-    return store.agregarProductos(data);
+    // return store.productosid(id);
+    console.log(data)
+    // return store.agregarProductos(data);
   }
 
   function venderProductos(data) {

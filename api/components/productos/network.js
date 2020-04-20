@@ -11,7 +11,7 @@ router.get("/:id", productosid);
 router.post("/", ingresarProductos)
 router.put("/", agregarProductos)
 router.put("/venta", venderProductos)
-router.get("/imagenes/:id",verImagen)
+router.get("/imagenes/:id", verImagen)
 // router.get("/cliente/:id", getEmpaquesCliente);
 // router.get("/fecha/:id", getEmp      aquesFecha);
 // router.get('/fecha/fechaCliente/:id',getEmpaquesFechaCliente);
@@ -25,11 +25,11 @@ router.get("/imagenes/:id",verImagen)
 
 // funciones listas de empaque
 
-function verImagen(req,res,next){
-console.log(__dirname+'/publicomg')
+function verImagen(req, res, next) {
+  console.log(__dirname + '/publicomg')
   // res.sendFile( `publicomg/${req.params.id}` );
   // res.sendFile(path.join(__dirname, '/publicomg/'+req.params.id));
-res.sendFile(req.params.id, { root: path.join(__dirname, '\publicomg') });
+  res.sendFile(req.params.id, { root: path.join(__dirname, '\publicomg') });
   // res.sendFile( `publicomg/${req.params.id}`)
   // res.send(`<img src="publicomg/${req.params.id}"/>`)
 }
@@ -59,12 +59,13 @@ function ingresarProductos(req, res, next) {
 
 }
 function agregarProductos(req, res, next) {
+  console.log(req.body)
   // res.send(req.body)
-  Controller.agregarProductos(req.body)
-    .then(user => {
-      response.success(req, res, user, 200);
-    })
-    .catch(next);
+  // Controller.agregarProductos(req.body)
+  //   .then(user => {
+  //     response.success(req, res, user, 200);
+  //   })
+  //   .catch(next);
 }
 
 function venderProductos(req, res, next) {
