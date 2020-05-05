@@ -7,14 +7,14 @@ module.exports={
         secret: process.env.JWT_SECRET || 'notasecret!',
     },
     mysql:{
-        host:process.env.MYSQL_HOST || `localhost`,
-        user:process.env.MYSQL_USER || `root`,
-        password:process.env.MYSQL_PASS || `toor`,
-        database:process.env.MYSQL_DB || `tienda_app`,
+        host:process.env.MYSQL_HOST || `bpqq1lclzymnzyu5dbdf-mysql.services.clever-cloud.com`,
+        user:process.env.MYSQL_USER || `uojfc3y3b2vqa0sq`,
+        password:process.env.MYSQL_PASS || `fvTHJcMNXsDsmksbJMBK`,
+        database:process.env.MYSQL_DB || `bpqq1lclzymnzyu5dbdf`,
     },
     mysqlService:{
         host:process.env.MYSQL_SRV_HOST || `localhost`,
-        port:process.env.MYSQL_SRV_PORT || 3001,
+        port:process.env.MYSQL_SRV_PORT || 3000,
     }
 }
 
