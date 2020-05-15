@@ -15,30 +15,38 @@ module.exports = function (injectedStore) {
     }
 
     async function crearPedidos(data) {
+        
+        // console.log(data)
+        // return(data)
+        
         pedido = {
-            fecha: data.fecha,
+            fecha: data.pedido.fecha,
             estado: "no_enviado",
-            usuario: data.id_usuario
+            usuario: "1023955260"
         }
-        let cantidad = data.productos.length
+        console.log(pedido)
+        let cantidad = data.pedido.productos.length
+        console.log(cantidad)
         let valor = 0;
         for (let i = 0; i < cantidad; i++) {
-            valor += data.productos[i].producto_cantidad * data.productos[i].producto_valor;
+            valor += data.pedido.productos[i].producto_cantidad * data.pedido.productos[i].pro_valor;
         }
         pedido.valor = valor
-
+        console.log(pedido)
         let id = await store.crearPedidos(pedido)
         console.log(id[0][0].ped_id)
+        // console.log(pedido.usuario)
         for (let i = 0; i < cantidad; i++) {
 
             await store.crearPaquetes(
-                data.productos[i].usuario_id,
-                data.productos[i].producto_cantidad,
-                data.productos[i].producto_id,
-                id[0][0].ped_id)
+                    pedido.usuario,
+                    data.pedido.productos[i].producto_cantidad,
+                    data.pedido.productos[i].pro_id,
+                    id[0][0].ped_id
+                )
         }
 
-        // return 
+        return data
         // let query=store.crearPedidos(pedido);
         // console.log(query)
 
