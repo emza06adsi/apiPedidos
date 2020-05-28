@@ -22,7 +22,10 @@ module.exports = function (injectedStore) {
         pedido = {
             fecha: data.pedido.fecha,
             estado: "no_enviado",
-            usuario: "1023955260"
+            usuario: "1023955260",
+            ubicacion:data.pedido.ubicacion,
+            contacto:data.pedido.telefono
+
         }
         console.log(pedido)
         let cantidad = data.pedido.productos.length

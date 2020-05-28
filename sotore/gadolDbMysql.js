@@ -177,7 +177,16 @@ function listarPedidosId(id) {
 function crearPedidos(data) {
     // console.log(data)
     return new Promise((resolve, reject) => {
-        connection.query(`call crearPedidos(?,?,?,?)`,[data.fecha,data.valor,data.estado,data.usuario], (err, result) => {
+        connection.query(
+            `call crearPedidos(?,?,?,?,?,?)`,
+            [
+                data.fecha,
+                data.valor,
+                data.estado,
+                data.usuario,
+                data.ubicacion,
+                data.contacto
+            ], (err, result) => {
             if (err) return reject(err);
             resolve(result);
         })
