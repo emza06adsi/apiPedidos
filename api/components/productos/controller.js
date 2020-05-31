@@ -27,7 +27,8 @@ module.exports = function (injectedStore) {
         console.log(err)
       }
       else{
-       let img=`http://localhost:3001/api/tienda/imagenes/${data.codigo}_${data.nombre}.jpg`;   
+       let img=`https://api-a-tu-servicio.herokuapp.com/api/tienda/imagenes/${data.codigo}_${data.nombre}.jpg`;   
+       
        return store.ingresarProductos(img,data);   
        
       }
