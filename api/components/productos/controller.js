@@ -20,17 +20,18 @@ module.exports = function (injectedStore) {
   // file: '
 
   function ingresarProductos(data) {
-    let base64String = data.file
-    let base64img = base64String.split(';base64,').pop();
-    fs.writeFile(`api/components/productos/publicomg/${data.codigo}_${data.nombre}.jpg`,base64img,{encoding:'base64'},function(err){
-      if(err){
-        console.log(err)
-      }
-      else{
-       let img=`https://api-a-tu-servicio.herokuapp.com/api/tienda/imagenes/${data.codigo}_${data.nombre}.jpg`;   
+    // let base64String = data.file
+    // let base64img = base64String.split(';base64,').pop();
+    // fs.writeFile(`api/components/productos/publicomg/${data.codigo}_${data.nombre}.jpg`,base64img,{encoding:'base64'},function(err){
+      // if(err){
+      //   console.log(err)
+      // }
+      // else{
+      //  let img=`https://api-a-tu-servicio.herokuapp.com/api/tienda/imagenes/${data.codigo}_${data.nombre}.jpg`;   
        
        
-       return store.ingresarProductos(img,data);   
+      //  return store.ingresarProductos(img,data);   
+       return store.ingresarProductos(data);   
        
       }
     })

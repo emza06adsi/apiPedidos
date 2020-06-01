@@ -107,7 +107,7 @@ function productosid(id) {
 function ingresarProductos(img,data) {
     
     return new Promise((resolve, reject) => {
-        connection.query(`call ingresarProductos(?,?,?,?,?,?)`, [data.codigo, data.tipo, data.nombre, data.cantidad, data.precio,img], (err, result) => {
+        connection.query(`call ingresarProductos(?,?,?,?,?,?)`, [data.codigo, data.tipo, data.nombre, data.cantidad, data.precio,data.file], (err, result) => {
             if (err) return reject(err);
             resolve(data);
         })
