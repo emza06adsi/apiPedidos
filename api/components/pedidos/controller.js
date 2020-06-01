@@ -38,17 +38,17 @@ module.exports = function (injectedStore) {
         pedido.valor = valor
         console.log(pedido.valor)
         let id = await store.crearPedidos(pedido)
-        // console.log(id[0][0].ped_id)
-        // console.log(pedido.usuario)
-        // for (let i = 0; i < cantidad; i++) {
+        console.log(id[0][0].ped_id)
+        console.log(pedido.usuario)
+        for (let i = 0; i < cantidad; i++) {
 
-        //     await store.crearPaquetes(
-        //             pedido.usuario,
-        //             data.pedido.productos[i].producto_cantidad,
-        //             data.pedido.productos[i].pro_id,
-        //             id[0][0].ped_id
-        //         )
-        // }
+            await store.crearPaquetes(
+                    pedido.usuario,
+                    data.productos[i].producto_cantidad,
+                    data.productos[i].pro_id,
+                    id[0][0].ped_id
+                )
+        }
 
         return data
         // let query=store.crearPedidos(pedido);
