@@ -193,10 +193,10 @@ function crearPedidos(data) {
 
     })
 }
-function crearPaquetes(usuario,canidad,idProducto,idPedido) {
+function crearPaquetes(usuario,cantidad,idProducto,idPedido) {
     // console.log(`${cantidad},${valor},${idProducto},${isPedido}`)
     return new Promise((resolve, reject) => {
-        connection.query(`call crearpaquetes(?,?,?)`,[canidad,idProducto,idPedido], (err, result) => {
+        connection.query(`call crearpaquetes(?,?,?)`,[cantidad,idProducto,idPedido], (err, result) => {
             if (err) return reject(err);
             resolve(result);
         })
