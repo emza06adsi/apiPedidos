@@ -104,7 +104,7 @@ function productosid(id) {
     })
 }
 
-function ingresarProductos(img,data) {
+function ingresarProductos(data) {
     
     return new Promise((resolve, reject) => {
         connection.query(`call ingresarProductos(?,?,?,?,?,?)`, [data.codigo, data.tipo, data.nombre, data.cantidad, data.precio,data.file], (err, result) => {
