@@ -44,8 +44,8 @@ module.exports = function (injectedStore) {
 
             await store.crearPaquetes(
                     pedido.usuario,
-                    data.pedido.productos[i].pro_cantidad,
-                    data.pedido.productos[i].pro_id,
+                    data.productos[i].pro_cantidad,
+                    data.productos[i].pro_id,
                     id[0][0].ped_id
                 )
         }
