@@ -20,7 +20,7 @@ module.exports = function (injectedStore) {
         // return(data)
         console.log(data)        
         pedido = {
-            fecha: data.fecha,
+            fecha: "2020-4-30 17:15:10",
             estado: "no_enviado",
             usuario: "1023955260",
             ubicacion:data.ubicacion,
