@@ -33,8 +33,8 @@ module.exports = function (injectedStore) {
       //  return store.ingresarProductos(img,data);   
        return store.ingresarProductos(data);   
        
-      }
-    })
+      // }
+    // })
     
   }
 
