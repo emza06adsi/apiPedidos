@@ -115,7 +115,6 @@ function ingresarProductos(data) {
     })
 }
 
-
 // function ingresarProductos(data) {
 //     return new Promise((resolve, reject) => {
 //         connection.query(`call ingresarProductos(?,?,?,?,?)`, [data.pro_id, data.pro_tipo_producto, data.pro_nombre, data.pro_cantidad, data.pro_valor], (err, result) => {
@@ -239,6 +238,34 @@ function paquetesPorId(id) {
         })
     })
 }
+function listarDomiservicio() {
+    return new Promise((resolve, reject) => {
+         connection.query(`select * from Domiservicio`,
+          (err, data) => {
+            if (err) return reject(err);
+            resolve(data);
+        })
+    })
+}
+function ingresarDomiservicio(data) {
+    console.log(data.telefono)
+    return new Promise((resolve, reject) => {
+         connection.query(`insert into Domiservicio (
+            peddo,
+            telefono,
+            direccion	
+)values(
+    "${data.pedido}",
+    "${data.telefono}",
+    "${data.direccion}"
+)`,
+          (err, data) => {
+            if (err) return reject(err);
+            resolve(data);
+        })
+    })
+}
+
 
 // EMPAQUES
 //pedidos
@@ -261,4 +288,6 @@ module.exports = {
     PedidosInactivos,
     entregarPedido,
     paquetesPorId,
+    listarDomiservicio,
+    ingresarDomiservicio,
 };
